@@ -3,13 +3,9 @@ using System.Collections;
 
 public class RotatePlatform : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	public float Speed = 1f;
+
+	void FixedUpdate () {
+		transform.Rotate(0, 0, Speed * Time.deltaTime / 50f);
 	}
 }
