@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Path : MonoBehaviour {
 	[SerializeField] private Transform[] Points;
+	private bool Bounce = true;
 
 	public void OnDrawGizmos(){
 		// Can't draw a line without two points
@@ -17,34 +18,43 @@ public class Path : MonoBehaviour {
 	}
 
 	public IEnumerator<Transform> GetEnumerator(){
-		// If there's only one point don't do anything
 		if (Points == null || Points.Length < 1)
 			yield break;
 
-		// Whether or not you are going along
-		// for path forwardly or backwards
+		// Direction moving through points
 		int direction = 1;
-		// The index of the point the object is moving towards
+		// index of current point
 		int i = 0;
 
 		while (true) {
-			// Return next point
 			yield return Points[i];
 
-			// If there is only one point don't move
-			if (Points.Length == 1)
+			// Special Case
+			if (Points.Length == 1) {
 				continue;
+			}
 
-			// Invert the direction when we reach the beginning
-			// or end of the point array
+			// If I reach the first point
 			if (i <= 0) {
 				direction = 1;
 			} else if (i >= Points.Length - 1) {
-				direction = -1;
+				if (Bounce) {
+					direction = -1;
+				} else {
+					i = 0;
+				}
 			}
 
 			// Increment to next point
 			i += direction;
 		}
+	}
+
+	public void SetBounce(bool _bounce){
+		Bounce = _bounce;
+	}
+
+	public Transform[] GetPoints(){
+		return Points;
 	}
 }
