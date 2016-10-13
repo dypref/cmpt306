@@ -2,9 +2,13 @@
 using System.Collections;
 
 public class ChumpyMovement : MonoBehaviour {
+	// Movement speed for this unit
 	[SerializeField] private float MovementSpeed = 5.0f;
+	// Force to be added when this Chumpy jumps
 	[SerializeField] private float JumpPower = 100.0f;
+	// Mask containing blocks that are considered the ground
 	[SerializeField] private LayerMask GroundMask;
+	// The location that Chumpy will spawn/respawn at
 	[SerializeField] private Transform SceneSpawn;
 
 	private Animator _animator;
@@ -13,13 +17,16 @@ public class ChumpyMovement : MonoBehaviour {
 	private bool _isGrounded;
 
 	void Start(){
+		// Instantiate Chumpy's GameObjects
 		_animator = GetComponent<Animator> ();
 		_rb2d = GetComponent<Rigidbody2D> ();
 
+		// Move chumpy to the spawn
 		Respawn ();
 	}
 
 	void Update () {
+		// Update if Chumpy is on the ground or not
 		_isGrounded = Physics2D.OverlapCircle (GetGroundCheck(), 0.2f, GroundMask);
 	}
 
@@ -27,20 +34,30 @@ public class ChumpyMovement : MonoBehaviour {
 		HandleMoveInput ();
 	}
 
+	/*
+	 * Get and execute the players input
+	 */
 	void HandleMoveInput() {
 		float moveX = Input.GetAxis ("Horizontal");
 
 		_rb2d.AddForce (new Vector2 (moveX * MovementSpeed, 0));
 
+		// Jump if chumpy is on the ground
 		if (_isGrounded && Input.GetKey (KeyCode.Space))
 			_rb2d.AddForce (new Vector2 (0, JumpPower));
 	}
 
 	void Respawn(){
+		// Move to spawn
 		_rb2d.position = SceneSpawn.position;
+		// Remove all velocity
 		_rb2d.velocity = Vector2.zero;
 	}
 
+	/*
+	 * Calculate the point below Chumpy
+	 * (GroundCheck doesn't work because it rotates with Chumpy)
+	 */
 	Vector2 GetGroundCheck(){
 		return new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);
 	}
