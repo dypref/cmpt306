@@ -1,51 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemMenu : MonoBehaviour {
+public class ItemMenu : MonoBehaviour
+{
 
     private bool isDown = false;
-    private int targetHeight;
-    private static int topHeight;
-    private static int bottomHeight;
-    public Transform relative;
-    private int moveSpeed = 5;
+    private bool isMoving = false;
+    private float leftToMove;
+    private float steps;
+    public RectTransform relative;
+    private float animationTime = 30;
+    private float xScale;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
-        topHeight = 330;
-        bottomHeight = 230;
-        targetHeight = topHeight;
-	}
-	
+    }
 
-	void FixedUpdate () {
 
-        if (transform.localPosition.y != targetHeight)
+    void FixedUpdate()
+    {
+
+        if (isMoving)
         {
-            
+
             if (isDown)
             {
-                transform.Translate(Vector3.down * moveSpeed, relative);
+
+                transform.Translate(Vector3.down * steps, relative);
             }
-            else{
-                transform.Translate(Vector3.up * moveSpeed, relative);
+            else
+            {
+
+                transform.Translate(Vector3.up * steps, relative);
             }
-            
+            leftToMove -= steps;
+            if (leftToMove <= 0)
+            {
+
+                isMoving = !isMoving;
+            }
         }
-	}
+    }
 
-    public void HideAndShow() {
+    public void HideAndShow()
+    {
 
-        isDown = !isDown;
-        if (isDown) {
+        if (!isMoving)
+        {
 
-            targetHeight = bottomHeight;
-        }
-        else {
-
-            targetHeight = topHeight;
+            isMoving = true;
+            isDown = !isDown;
+            leftToMove = relative.transform.localScale.y * ((RectTransform)transform).rect.height;
+            steps = leftToMove / animationTime;
         }
     }
 
