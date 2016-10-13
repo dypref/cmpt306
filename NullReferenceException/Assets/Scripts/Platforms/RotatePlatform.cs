@@ -3,9 +3,9 @@ using System.Collections;
 
 public class RotatePlatform : MonoBehaviour {
 
-	public float Speed = 1f;
+	public float Speed = 50f;
 
 	void FixedUpdate () {
-		transform.Rotate(0, 0, Speed * Time.deltaTime / 50f);
+		transform.Rotate(Vector3.forward * Time.deltaTime * Speed);
 	}
 }
