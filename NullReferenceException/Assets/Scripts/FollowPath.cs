@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class MoveObject : MonoBehaviour {
+public class FollowPath : MonoBehaviour {
 	[SerializeField] private Path path;
 	[SerializeField] private float Speed = 3.0f;
 	[SerializeField] private float MaxDistanceToGoal = 0.1f;
