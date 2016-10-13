@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class RotatePlatform : MonoBehaviour {
-
-	public float Speed = 50f;
+	[SerializeField] private bool SpinRight = true;
+	[SerializeField] private float Speed = 50f;
 
 	void FixedUpdate () {
-		transform.Rotate(Vector3.forward * Time.deltaTime * Speed);
+		transform.Rotate(Vector3.forward * Time.deltaTime * Speed * ((SpinRight) ? -1 : 1));
 	}
 }
