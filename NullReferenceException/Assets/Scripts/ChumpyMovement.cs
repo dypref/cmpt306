@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
 
 public class ChumpyMovement : MonoBehaviour {
 	// Movement speed for this unit
@@ -13,12 +11,17 @@ public class ChumpyMovement : MonoBehaviour {
 	// The location that Chumpy will spawn/respawn at
 	[SerializeField] private Transform SceneSpawn;
 
+	private int _mobileMutlipler;
+
 	private Animator _animator;
 	private Rigidbody2D _rb2d;
 
 	private bool _isGrounded;
 
 	void Start(){
+		// Initial the adjustment for mobile movement
+		_mobileMutlipler = 7;
+
 		// Instantiate Chumpy's GameObjects
 		// _animator = GetComponent<Animator> ();
 		_rb2d = GetComponent<Rigidbody2D> ();
@@ -53,12 +56,12 @@ public class ChumpyMovement : MonoBehaviour {
 	// Jump for InputManager Script on mobile device
 	public void Jump() {
 		if (_isGrounded)
-			_rb2d.AddForce (new Vector2 (0, JumpPower*5));
+			_rb2d.AddForce (new Vector2 (0, JumpPower * _mobileMutlipler));
 	}
 
 	// Move for InputManager Script on mobile device
 	public void Move(float x, float y) {
-		_rb2d.AddForce (new Vector2 (y * MovementSpeed, -x * MovementSpeed));
+		_rb2d.AddForce (new Vector2 (y * MovementSpeed * _mobileMutlipler, -x * MovementSpeed * _mobileMutlipler));
 	}
 
 	void Respawn(){

@@ -23,9 +23,7 @@ public class InputManager : MonoBehaviour {
 		}
 
 		// Let Chumpy move by tilting the phone at any angle
-		float initialOrientationX = Input.gyro.rotationRateUnbiased.x;
-		float initialOrientationY = Input.gyro.rotationRateUnbiased.y;
-		Chumpy.Move (initialOrientationX, initialOrientationY);
+		Chumpy.Move (Input.gyro.rotationRateUnbiased.x, Input.gyro.rotationRateUnbiased.y);
 
 	}
 
