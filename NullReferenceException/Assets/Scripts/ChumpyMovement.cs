@@ -13,20 +13,13 @@ public class ChumpyMovement : MonoBehaviour {
 
 	private int _mobileMutlipler;
 
-	private Animator _animator;
 	private Rigidbody2D _rb2d;
 
 	private bool _isGrounded;
 
 	void Start(){
-		// Initial the adjustment for mobile movement
-		_mobileMutlipler = 7;
-
 		// Instantiate Chumpy's GameObjects
-		// _animator = GetComponent<Animator> ();
 		_rb2d = GetComponent<Rigidbody2D> ();
-
-		// Move chumpy to the spawn
 		Respawn ();
 	}
 
@@ -35,33 +28,15 @@ public class ChumpyMovement : MonoBehaviour {
 		_isGrounded = Physics2D.OverlapCircle (GetGroundCheck(), 0.2f, GroundMask);
 	}
 
-	void FixedUpdate() {
-		HandleMoveInput ();
-	}
-
-	/*
-	 * Get and execute the players input
-	 */
-	void HandleMoveInput() {
-		float moveX = Input.GetAxis ("Horizontal");
-
-		_rb2d.AddForce (new Vector2 (moveX * MovementSpeed, 0));
-
-		// Jump if chumpy is on the ground
-		if (_isGrounded && Input.GetKey (KeyCode.Space))
-			_rb2d.AddForce (new Vector2 (0, JumpPower));
-
+	public void Move(float x, float y){
+		Vector2 movement = new Vector2(x * MovementSpeed, _rb2d.velocity.y);
+		_rb2d.velocity = movement;
 	}
 
 	// Jump for InputManager Script on mobile device
 	public void Jump() {
 		if (_isGrounded)
-			_rb2d.AddForce (new Vector2 (0, JumpPower * _mobileMutlipler));
-	}
-
-	// Move for InputManager Script on mobile device
-	public void Move(float x, float y) {
-		_rb2d.AddForce (new Vector2 (y * MovementSpeed * _mobileMutlipler, -x * MovementSpeed * _mobileMutlipler));
+			_rb2d.AddForce (new Vector2 (_rb2d.velocity.x,  JumpPower));
 	}
 
 	void Respawn(){
@@ -73,7 +48,6 @@ public class ChumpyMovement : MonoBehaviour {
 
 	/*
 	 * Calculate the point below Chumpy
-	 * (GroundCheck doesn't work because it rotates with Chumpy)
 	 */
 	Vector2 GetGroundCheck(){
 		return new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);
