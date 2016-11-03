@@ -9,10 +9,8 @@ public class ItemList : MonoBehaviour {
 	[SerializeField] private GameObject EmptySlot;
 
 	void Start () {
-		_itemList = GameObject.Find ("/Canvas/Image/ItemList");
-
 		for(int i=0; i<LevelObjects.Length; i++){
-			GameObject _curSlot = Instantiate (EmptySlot, _itemList.transform) as GameObject;
+			GameObject _curSlot = Instantiate (EmptySlot, gameObject.transform) as GameObject;
 			GameObject _curObject = Instantiate (LevelObjects[i]) as GameObject;
 
 			_curObject.SetActive (false);
