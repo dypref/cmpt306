@@ -3,12 +3,9 @@ using System.Collections;
 
 public class InputManager : MonoBehaviour {
 	public ChumpyMovement Chumpy;
-	public GameObject Player;
 
 	void Start() {
-		// Get Access to Chumpy Movement Script
-		Player = GameObject.FindGameObjectWithTag ("Player");
-		Chumpy = Player.GetComponent<ChumpyMovement> ();
+		Chumpy = GetComponent<ChumpyMovement> ();
 	}
 
 	void Update(){
@@ -18,9 +15,9 @@ public class InputManager : MonoBehaviour {
 		}
 
 		// Let Chumpy move by tilting the phone at any angle
-		float moveX = Input.acceleration.x;
+		//float moveX = Input.acceleration.x;
 		// PC movement
-		//float moveX = Input.GetAxis("Horizontal");
+		float moveX = Input.GetAxis("Horizontal");
 		Chumpy.Move (moveX, 0);
 	}
 }
