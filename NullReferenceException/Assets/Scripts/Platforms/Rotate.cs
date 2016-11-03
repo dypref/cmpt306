@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RotatePlatform : MonoBehaviour {
+public class Rotate : MonoBehaviour {
 	[SerializeField] private bool SpinRight = true;
 	[SerializeField] private float Speed = 50f;
 
