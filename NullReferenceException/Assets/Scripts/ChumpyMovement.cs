@@ -6,12 +6,12 @@ public class ChumpyMovement : MonoBehaviour {
 	[SerializeField] private float MovementSpeed = 5.0f;
 	// Force to be added when this Chumpy jumps
 	[SerializeField] private float JumpPower = 100.0f;
+	// Water movement reduction
+	[SerializeField] private float WaterModifier = 0.6f;
 	// Mask containing blocks that are considered the ground
 	[SerializeField] private LayerMask GroundMask;
 	// The location that Chumpy will spawn/respawn at
 	[SerializeField] private Transform SceneSpawn;
-
-	[SerializeField] private Transform GroundCheck;
 
 	[SerializeField] private  AudioClip JumpSound;
 
@@ -31,6 +31,10 @@ public class ChumpyMovement : MonoBehaviour {
 
 	public void Move(float x, float y) {
 		Vector2 movement = new Vector2(x * MovementSpeed, _rb2d.velocity.y);
+
+		if (Physics2D.OverlapCircle (transform.position, 0.2f).CompareTag ("Water"))
+			movement.x = movement.x * WaterModifier;
+		
 		_rb2d.velocity = movement;
 
 	}
@@ -55,9 +59,7 @@ public class ChumpyMovement : MonoBehaviour {
 	 * Calculate the point below Chumpy
 	 */
 	Vector2 GetGroundCheck() {
-		Vector2 _ground = new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);
-		GroundCheck.transform.position = _ground;
-		return _ground;
+		return new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);;
 	}
 		
 }
