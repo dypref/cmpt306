@@ -55,6 +55,11 @@ public class ChumpyMovement : MonoBehaviour {
 		_rb2d.velocity = Vector2.zero;
 	}
 
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.CompareTag ("Respawn"))
+			Respawn ();
+	}
+
 	/*
 	 * Calculate the point below Chumpy
 	 */
