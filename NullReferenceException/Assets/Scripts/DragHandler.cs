@@ -2,68 +2,39 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
-{
-
+public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler{
     public static GameObject item;
-    public Transform itemListBox;
+	public GameObject curObject {get; set;}
+
     Vector3 startPosition;
     Transform startParent;
     bool isUI;
-    
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-
-    }
-
-    #region IBeginDragHandler implementation
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-
+    public void OnBeginDrag(PointerEventData eventData){
         item = gameObject;
         startPosition = transform.position;
         startParent = transform.parent;
-        GetComponent<CanvasGroup>().blocksRaycasts = false;
+        //GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
-
-    #endregion
-
-    #region IDragHandler implementation
-
-    public void OnDrag(PointerEventData eventData)
-    {
-
+    public void OnDrag(PointerEventData eventData){
         transform.position = Input.mousePosition;
     }
 
-
-    #endregion
-
-    #region IEndDragHandler implementation
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
-
+    public void OnEndDrag(PointerEventData eventData){
         item = null;
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+		curObject.transform.parent = null;
+		curObject.SetActive (true);
+
+		Vector3 newPosition = 
+			Camera.main.ScreenToWorldPoint(
+				new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 10));
+
+		curObject.transform.position = newPosition;
+
         //if (transform.parent != startParent){
-            transform.position = startPosition;
+            //transform.position = startPosition;
         //}
     }
-
-
-    #endregion
-
-
 }
