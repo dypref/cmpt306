@@ -11,8 +11,6 @@ public class ChumpyMovement : MonoBehaviour {
 	// The location that Chumpy will spawn/respawn at
 	[SerializeField] private Transform SceneSpawn;
 
-	private int _mobileMutlipler;
-
 	private Rigidbody2D _rb2d;
 
 	private bool _isGrounded;
