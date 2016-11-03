@@ -12,7 +12,7 @@ public class InputManager : MonoBehaviour {
 
 	void Update(){
 		// Let Chumpy jump by tapping on the touch screen
-		if (Input.GetMouseButtonDown(0) || Input.GetKey (KeyCode.Space)) {
+		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown (KeyCode.Space)) {
 			Chumpy.Jump ();
 		}
 
