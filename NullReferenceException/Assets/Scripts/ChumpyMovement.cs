@@ -44,7 +44,8 @@ public class ChumpyMovement : MonoBehaviour {
 
 	void Respawn() {
 		// Move to spawn
-		_rb2d.position = SceneSpawn.position;
+		if(SceneSpawn != null)
+			_rb2d.position = SceneSpawn.position;
 		// Remove all velocity
 		_rb2d.velocity = Vector2.zero;
 	}
