@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
+	[SerializeField] private bool KeyboardInput = true;
+
 	public ChumpyMovement Chumpy;
 
 	void Start() {
@@ -14,10 +16,8 @@ public class InputManager : MonoBehaviour {
 			Chumpy.Jump ();
 		}
 
-		// Let Chumpy move by tilting the phone at any angle
-		//float moveX = Input.acceleration.x;
-		// PC movement
-		float moveX = Input.GetAxis("Horizontal");
+		float moveX = (KeyboardInput) ? Input.GetAxis("Horizontal") : Input.acceleration.x;
+
 		Chumpy.Move (moveX, 0);
 	}
 }
