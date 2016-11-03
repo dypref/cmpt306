@@ -6,9 +6,9 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public static GameObject item;
 	public GameObject curObject {get; set;}
 
-    Vector3 startPosition;
-    Transform startParent;
-    bool isUI;
+    private Vector3 startPosition;
+    private Transform startParent;
+    private bool isUI;
 
     public void OnBeginDrag(PointerEventData eventData){
         item = gameObject;

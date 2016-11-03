@@ -11,10 +11,11 @@ public class ChumpyMovement : MonoBehaviour {
 	// The location that Chumpy will spawn/respawn at
 	[SerializeField] private Transform SceneSpawn;
 
-	public AudioClip JumpSound;
+	[SerializeField] private Transform GroundCheck;
+
+	[SerializeField] private  AudioClip JumpSound;
 
 	private Rigidbody2D _rb2d;
-
 	private bool _isGrounded;
 
 	void Start() {
@@ -54,7 +55,9 @@ public class ChumpyMovement : MonoBehaviour {
 	 * Calculate the point below Chumpy
 	 */
 	Vector2 GetGroundCheck() {
-		return new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);
+		Vector2 _ground = new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);
+		GroundCheck.transform.position = _ground;
+		return _ground;
 	}
 		
 }

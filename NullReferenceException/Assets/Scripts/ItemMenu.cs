@@ -12,51 +12,28 @@ public class ItemMenu : MonoBehaviour
     private float animationTime = 30;
     private float xScale;
 
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-
-    void FixedUpdate()
-    {
-
-        if (isMoving)
-        {
-
-            if (isDown)
-            {
-
+    void FixedUpdate(){
+        if (isMoving){
+			if (isDown){
                 transform.Translate(Vector3.down * steps, relative);
-            }
-            else
-            {
-
+            } else{
                 transform.Translate(Vector3.up * steps, relative);
             }
-            leftToMove -= steps;
-            if (leftToMove <= 0)
-            {
-
+            
+			leftToMove -= steps;
+            
+			if (leftToMove <= 0){
                 isMoving = !isMoving;
             }
         }
     }
 
-    public void HideAndShow()
-    {
-
-        if (!isMoving)
-        {
-
+    public void HideAndShow(){
+        if (!isMoving){
             isMoving = true;
             isDown = !isDown;
             leftToMove = relative.transform.localScale.y * ((RectTransform)transform).rect.height;
             steps = leftToMove / animationTime;
         }
     }
-
-
 }
