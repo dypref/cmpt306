@@ -6,7 +6,7 @@ public class WaterTransparency : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        Color transparent = GetComponent<SpriteRenderer>().color;
+        // Color transparent = GetComponent<SpriteRenderer>().color;
 
 	}
 	

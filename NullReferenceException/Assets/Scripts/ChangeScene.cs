@@ -10,7 +10,6 @@ public class ChangeScene : MonoBehaviour {
 	// It is used for entering the next level
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.CompareTag("Player")) {
-			// Application.LoadLevel(SceneName);
 			SceneManager.LoadScene (SceneName);
 		}
 	}

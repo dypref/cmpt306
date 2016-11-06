@@ -12,8 +12,8 @@ public class ChumpyMovement : MonoBehaviour {
 	[SerializeField] private LayerMask GroundMask;
 	// The location that Chumpy will spawn/respawn at
 	[SerializeField] private Transform SceneSpawn;
-
-	[SerializeField] private  AudioClip JumpSound;
+	// The sound that Chumpy make when it jumps
+	[SerializeField] private AudioClip JumpSound;
 
 	private Rigidbody2D _rb2d;
 	private bool _isGrounded;
