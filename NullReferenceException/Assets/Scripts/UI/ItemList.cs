@@ -9,6 +9,7 @@ public class ItemList : MonoBehaviour {
 	[SerializeField] private GameObject EmptySlot;
 
 	void Start () {
+
 		for(int i=0; i<LevelObjects.Length; i++){
 			GameObject _curSlot = Instantiate (EmptySlot, gameObject.transform) as GameObject;
 			GameObject _curObject = Instantiate (LevelObjects[i]) as GameObject;
@@ -20,6 +21,7 @@ public class ItemList : MonoBehaviour {
 
 			_curSlot.GetComponent<Image> ().sprite = _curObject.GetComponent<SpriteRenderer> ().sprite;
 			_curSlot.transform.localScale = Vector3.one;
+
 		}
 	}
 }

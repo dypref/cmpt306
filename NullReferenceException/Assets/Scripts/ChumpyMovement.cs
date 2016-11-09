@@ -14,6 +14,8 @@ public class ChumpyMovement : MonoBehaviour {
 	[SerializeField] private Transform SceneSpawn;
 	// The sound that Chumpy make when it jumps
 	[SerializeField] private AudioClip JumpSound;
+	// The sound plays when Chumpy gets a coin
+	[SerializeField] private AudioClip ItemGetSound;
 
 	private Rigidbody2D _rb2d;
 	private bool _isGrounded;
@@ -60,9 +62,26 @@ public class ChumpyMovement : MonoBehaviour {
 			Respawn ();
 	}
 
-	/*
-	 * Calculate the point below Chumpy
-	 */
+	void OnCollisionEnter2D(Collision2D collider) {
+
+		// The number of coins is increased by one, 
+		// and the coin will disappear when Chumpy touches a coin
+		if (collider.gameObject.CompareTag("Coin")) {
+
+			// Play the item get sound
+			AudioSource.PlayClipAtPoint(ItemGetSound, transform.localPosition);
+
+			// Increase the count of coins
+			GameManager.CoinCount += 1;
+
+			// Destroy the coin that got by Chumpy
+			Destroy (collider.gameObject);
+
+		}
+
+	}
+
+	// Calculate the point below Chumpy
 	Vector2 GetGroundCheck() {
 		return new Vector2 (_rb2d.position.x, _rb2d.position.y - 0.5f);;
 	}
