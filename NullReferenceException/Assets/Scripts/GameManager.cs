@@ -23,8 +23,4 @@ public class GameManager : MonoBehaviour {
 
 	}
 
-	// Exit the game, for the exit button on the main menu
-	public void doExitGame() {
-		Application.Quit();
-	}
 }
