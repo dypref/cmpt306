@@ -4,8 +4,9 @@ using UnityEngine.EventSystems;
 
 public class InputManager : MonoBehaviour {
 
+	// Use keyboard input or not
 	[SerializeField] private bool KeyboardInput = true;
-
+	// Get Chumpy
 	private ChumpyMovement Chumpy;
 
 	void Start() {

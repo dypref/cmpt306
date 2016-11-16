@@ -6,4 +6,3 @@
 
 ## Technical Elements
 - Mobile application
-- Advanced testing
