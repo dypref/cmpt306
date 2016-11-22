@@ -16,16 +16,40 @@ public class MusicSetting : MonoBehaviour {
 		On
 	};
 
-	// For Setting scene to turn on/off music and sound effects
+	// Load corresponding image for initial state
+	void Start() {
+
+		if (PlayerPrefs.GetInt("Music") == (int)MusicState.On) {
+			TurnOnMusic ();
+
+		} else {
+			TurnOffMusic ();
+		}
+
+	}
+
+	// For Setting scene to flip music state
 	public void MusicToggle() {
 		
-		if(AudioListener.volume == (float)(int)MusicState.On) {
-			AudioListener.volume = (float)(int)MusicState.Off;
-			GetComponent<Image> ().sprite = MusicOff;
+		if (PlayerPrefs.GetInt("Music") == (int)MusicState.On) {
+			TurnOffMusic ();
+
+		} else {
+			TurnOnMusic ();
 		}
-		else if(AudioListener.volume == (float)(int)MusicState.Off) {
-			AudioListener.volume = (float)(int)MusicState.On;
-			GetComponent<Image> ().sprite = MusicOn;
-		}
+
 	}
+
+	public void TurnOnMusic() {
+		AudioListener.volume = (float)(int)MusicState.On;
+		PlayerPrefs.SetInt ("Music", (int)MusicState.On);
+		GetComponent<Image> ().sprite = MusicOn;
+	}
+
+	public void TurnOffMusic() {
+		AudioListener.volume = (float)(int)MusicState.Off;
+		PlayerPrefs.SetInt ("Music", (int)MusicState.Off);
+		GetComponent<Image> ().sprite = MusicOff;
+	}
+
 }
