@@ -14,9 +14,9 @@ public class SwipeHandler : MonoBehaviour {
 	public String leftScene;
 	public String rightScene;
 
-	void Awake() {
-		DontDestroyOnLoad (gameObject);
-	}
+//	void Awake() {
+//		DontDestroyOnLoad (gameObject);
+//	}
 
 	void Update() {
 		
@@ -31,9 +31,9 @@ public class SwipeHandler : MonoBehaviour {
 		} else if (Input.GetMouseButtonUp(0)) {
 			if (swipeDistance > swipeStandard) {
 				if (fingerX > 0) {
-					SceneManager.LoadScene (leftScene);
-				} else {
 					SceneManager.LoadScene (rightScene);
+				} else {
+					SceneManager.LoadScene (leftScene);
 				}
 			}
 
