@@ -6,20 +6,23 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
-	// Icons for lock and unlock
-	[SerializeField]
+	// lock and unlock
 	public Sprite lockIcon;
-	[SerializeField] 
 	public Sprite unlockIcon;
-	
-	
-	public List<Level> levelList = new List<Level>();
-	private Text levelInfo;
-	// Use text until icon works
-	private Text lockInfo;
 	private Image icon;
 	
+	// star get or not
+	public Sprite starGet;
+	public Sprite starUnget;
+	private Image firstStar;
+	private Image secondStar;
+	private Image thirdStar;
 
+	// Initialize a list of levels
+	public List<Level> levelList = new List<Level>();
+	
+	// Level number
+	private Text levelInfo;
 
 	void Awake () {
 		
@@ -32,75 +35,95 @@ public class LevelManager : MonoBehaviour {
 			level.isLocked = true;	
 		}
 		levelList[0].isLocked = false;
-		
+
+	}
+	
+	// Hide all star slots when it is locked.
+	void HideStars(int index) {
+		this.firstStar = GameObject.Find("Canvas/Level" + (index + 1).ToString() + "/star1").GetComponent<Image> ();
+		this.firstStar.enabled = false;
+		this.secondStar = GameObject.Find("Canvas/Level" + (index + 1).ToString() + "/star2").GetComponent<Image> ();
+		this.secondStar.enabled = false;
+		this.thirdStar = GameObject.Find("Canvas/Level" + (index + 1).ToString() + "/star3").GetComponent<Image> ();
+		this.thirdStar.enabled = false;
+	}
+
+	// Use this for initialization
+	void Start () {
+	
 		// Draw data.
 		for (int i = 0; i < levelList.Count; i++) {	
 			
 			levelList[i].index = i;
 			
+			// Get data.
 			if (PlayerPrefs.HasKey("Level" + i.ToString() + "isFinished")) {
 				levelList[i].isFinished = PlayerPrefs.GetInt("Level" + i.ToString() + "isFinished");
 			}
 			
 			if (PlayerPrefs.HasKey("starOfLevel" + i.ToString())) {
 				levelList[i].starCount = PlayerPrefs.GetInt("starOfLevel" + i.ToString());
-				Debug.Log(PlayerPrefs.GetInt("starOfLevel" + i.ToString()));
 			}
 			
 			levelInfo = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/LevelNumber").GetComponent<Text>();
-			lockInfo = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/IsLocked").GetComponent<Text>();
 			icon = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString()).GetComponent<Image> ();
 			
 			levelInfo.text = (levelList[i].index + 1).ToString();
-			// levelInfo.text = levelList[i].isLocked.ToString();
+			
 			if (levelList [i].isFinished == 1) {
-				
-				//testText += levelList[i].starCount.ToString() + levelList[i].isLocked.ToString();
-				
-				// Draw stars.
-				switch (levelList[i].starCount) {
-					case 0:
-						
-						break;
-					case 1:
-						
-						break;
-					case 2:
-						
-						break;
-					case 3:
-						
-						break;
-					default:
-						break;
-				}
 
 				// Unlock next level.
 				if (i+1 < levelList.Count) {
 					levelList [i + 1].isLocked = false;
 				}
-				Debug.Log("Can I be here?");
 
 			}
-
 			
-			if (levelList[i].isLocked) {
-				lockInfo.text = "Locked";
-			} else {
-				lockInfo.text = levelList[i].starCount.ToString();
+			// Draw stars.							
+			this.firstStar = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/star1").GetComponent<Image> ();
+			this.secondStar = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/star2").GetComponent<Image> ();
+			this.thirdStar = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/star3").GetComponent<Image> ();
+
+			switch (levelList[i].starCount) {
+				case 0:
+					this.firstStar.sprite = this.starUnget;
+					this.secondStar.sprite = this.starUnget;
+					this.thirdStar.sprite = this.starUnget;
+					break;
+				case 1:
+					this.firstStar.sprite = this.starGet;
+					this.secondStar.sprite = this.starUnget;
+					this.thirdStar.sprite = this.starUnget;
+					break;
+				case 2:
+					this.firstStar.sprite = this.starGet;
+					this.secondStar.sprite = this.starGet;
+					this.thirdStar.sprite = this.starUnget;
+					break;
+				case 3:
+					this.firstStar.sprite = this.starGet;
+					this.secondStar.sprite = this.starGet;
+					this.thirdStar.sprite = this.starGet;
+					break;
+				default:
+					break;
 			}
+
+			// Draw lock or unlock, also adjust text alignment.
+			if (levelList[i].isLocked) {
+				icon.sprite = this.lockIcon;
+				this.HideStars(levelList[i].index);
+				
+			} else {
+				this.levelInfo.alignment = TextAnchor.UpperCenter;
+				icon.sprite = this.unlockIcon;
+				
+			}
+
 		}
-		
-
-		
-	}
-
-	// Use this for initialization
-	void Start () {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 //		if (Input.GetMouseButtonUp (0)) {
