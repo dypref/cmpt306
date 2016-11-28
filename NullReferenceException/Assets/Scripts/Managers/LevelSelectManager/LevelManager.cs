@@ -27,8 +27,7 @@ public class LevelManager : MonoBehaviour {
 	void Awake () {
 		
 		// Assume I have these data
-		PlayerPrefs.SetInt("starOfLevel0", 1);
-		Debug.Log(PlayerPrefs.HasKey("starOfLevel0"));
+		PlayerPrefs.SetInt("starOfSpaceLevel0", 2);
 		
 		// Initialize data.
 		foreach (Level level in levelList) {
@@ -57,12 +56,12 @@ public class LevelManager : MonoBehaviour {
 			levelList[i].index = i;
 			
 			// Get data.
-			if (PlayerPrefs.HasKey("Level" + i.ToString() + "isFinished")) {
-				levelList[i].isFinished = PlayerPrefs.GetInt("Level" + i.ToString() + "isFinished");
+			if (PlayerPrefs.HasKey("SpaceLevel" + i.ToString() + "isFinished")) {
+				levelList[i].isFinished = PlayerPrefs.GetInt("SpaceLevel" + i.ToString() + "isFinished");
 			}
 			
 			if (PlayerPrefs.HasKey("starOfLevel" + i.ToString())) {
-				levelList[i].starCount = PlayerPrefs.GetInt("starOfLevel" + i.ToString());
+				levelList[i].starCount = PlayerPrefs.GetInt("starOfSpaceLevel" + i.ToString());
 			}
 			
 			levelInfo = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/LevelNumber").GetComponent<Text>();
@@ -106,6 +105,9 @@ public class LevelManager : MonoBehaviour {
 					this.thirdStar.sprite = this.starGet;
 					break;
 				default:
+					this.firstStar.sprite = this.starUnget;
+					this.secondStar.sprite = this.starUnget;
+					this.thirdStar.sprite = this.starUnget;					
 					break;
 			}
 
