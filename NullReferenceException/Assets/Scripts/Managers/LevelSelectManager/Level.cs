@@ -11,14 +11,14 @@ public class Level {
 	// How many coins you get?
 	public int starCount;
 	// Is this level finished?
-	public bool isFinished;
+	public int isFinished;
 
 	public SpriteRenderer level;
 
 	void Start () {
 		isLocked = true;
 		starCount = 0;
-		isFinished = false;
+		isFinished = 0;
 	}
 
 }
