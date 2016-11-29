@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
+	// the name of the theme starting with a capitalized character;
+	public string theme;
+
 	// lock and unlock
 	public Sprite lockIcon;
 	public Sprite unlockIcon;
@@ -27,7 +30,7 @@ public class LevelManager : MonoBehaviour {
 	void Awake () {
 		
 		// Assume I have these data
-		PlayerPrefs.SetInt("starOfSpaceLevel0", 2);
+		PlayerPrefs.SetInt("starOf" + theme + "Level0", 2);
 		
 		// Initialize data.
 		foreach (Level level in levelList) {
@@ -56,12 +59,12 @@ public class LevelManager : MonoBehaviour {
 			levelList[i].index = i;
 			
 			// Get data.
-			if (PlayerPrefs.HasKey("SpaceLevel" + i.ToString() + "isFinished")) {
-				levelList[i].isFinished = PlayerPrefs.GetInt("SpaceLevel" + i.ToString() + "isFinished");
+			if (PlayerPrefs.HasKey(theme + "Level" + i.ToString() + "isFinished")) {
+				levelList[i].isFinished = PlayerPrefs.GetInt(theme + "Level" + i.ToString() + "isFinished");
 			}
 			
 			if (PlayerPrefs.HasKey("starOfLevel" + i.ToString())) {
-				levelList[i].starCount = PlayerPrefs.GetInt("starOfSpaceLevel" + i.ToString());
+				levelList[i].starCount = PlayerPrefs.GetInt("starOf" + theme + "Level" + i.ToString());
 			}
 			
 			levelInfo = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/LevelNumber").GetComponent<Text>();
