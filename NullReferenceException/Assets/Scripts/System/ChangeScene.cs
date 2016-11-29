@@ -4,13 +4,25 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour {
 
-	public string SceneName;
+	public string nextLevel;
+	public string theme;
 
-	// Move to the named scene
 	// It is used for entering the next level
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.CompareTag("Player")) {
-			SceneManager.LoadScene (SceneName);
+			SceneManager.LoadScene (nextLevel);
 		}
 	}
+
+	// Reload current level
+	public void ReloadCurrentLevel() {
+		Scene scene = SceneManager.GetActiveScene(); 
+		SceneManager.LoadScene(scene.name);
+	}
+	
+	// Back to 10 level select scene
+	void BackToSceneSelect() {
+		SceneManager.LoadScene (theme.ToString());
+	}
+	
 }

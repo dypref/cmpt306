@@ -4,9 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class Select : MonoBehaviour {
 
-    public void LoadScene(string SceneName)
-    {
-
+    public void LoadScene(string SceneName) {
         SceneManager.LoadScene(SceneName);
     }
+	
 }
