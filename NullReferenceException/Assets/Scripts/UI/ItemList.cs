@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class ItemList : MonoBehaviour {
-	private GameObject _itemList;
+	private GameObject itemList;
 
 	[SerializeField] private GameObject[] LevelObjects;
 	[SerializeField] private GameObject EmptySlot;
@@ -11,16 +11,19 @@ public class ItemList : MonoBehaviour {
 	void Start () {
 
 		for(int i=0; i<LevelObjects.Length; i++){
-			GameObject _curSlot = Instantiate (EmptySlot, gameObject.transform) as GameObject;
-			GameObject _curObject = Instantiate (LevelObjects[i]) as GameObject;
+			GameObject curSlot = Instantiate (EmptySlot, gameObject.transform) as GameObject;
+			GameObject curObject = Instantiate (LevelObjects[i], curSlot.transform) as GameObject;
 
-			_curObject.SetActive (false);
+			//curObject.SetActive (false);
+			//curObject.GetComponent<Rigidbody2D>().
 
-			DragHandler dragHandler = _curSlot.AddComponent<DragHandler>();
-			dragHandler.curObject = _curObject;
+			//curSlot.GetComponent<Image> ().sprite = curSlot.GetComponent<SpriteRenderer> ().sprite;
 
-			_curSlot.GetComponent<Image> ().sprite = _curObject.GetComponent<SpriteRenderer> ().sprite;
-			_curSlot.transform.localScale = Vector3.one;
+			curSlot.transform.localScale = Vector3.one;
+			curObject.transform.parent = null;
+			curObject.transform.localScale = Vector3.one;
+			curObject.transform.SetParent (curSlot.transform);
+			curObject.transform.localPosition = Vector3.zero;
 
 		}
 	}
