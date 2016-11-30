@@ -22,6 +22,12 @@ public class LevelManager : MonoBehaviour {
 	private Image secondStar;
 	private Image thirdStar;
 
+    // button
+    private Button button;
+
+    // automatically load level
+    private Vector2 touchPos;
+
 	// Initialize a list of levels
 	public List<Level> levelList = new List<Level>();
 	
@@ -29,10 +35,14 @@ public class LevelManager : MonoBehaviour {
 	private Text levelInfo;
 
 	void Awake () {
-		
-		// Assume I have these data
-		PlayerPrefs.SetInt("starOf" + theme + "Level0", 2);
-		
+	    
+        // Assume I have these data;
+        for (int i = 0; i < levelList.Count; i++) {
+            levelList[i].isFinished = 1;
+        }
+            
+        levelList[0].starCount = 3;
+
 		// Initialize data.
 		foreach (Level level in levelList) {
 			level.isLocked = true;	
@@ -60,12 +70,13 @@ public class LevelManager : MonoBehaviour {
 			levelList[i].index = i;
 			
 			// Get data.
-			if (PlayerPrefs.HasKey(theme + "Level" + i.ToString() + "isFinished")) {
-				levelList[i].isFinished = PlayerPrefs.GetInt(theme + "Level" + i.ToString() + "isFinished");
+			if (PlayerPrefs.HasKey("Level" + i.ToString() + "isFinished")) {
+				levelList[i].isFinished = PlayerPrefs.GetInt("Level" + (i + 1).ToString() + "isFinished");
+                levelList[i].isLocked = false;
 			}
 			
 			if (PlayerPrefs.HasKey("starOfLevel" + i.ToString())) {
-				levelList[i].starCount = PlayerPrefs.GetInt("starOf" + theme + "Level" + i.ToString());
+				levelList[i].starCount = PlayerPrefs.GetInt("starOfLevel" + (i + 1).ToString());
 			}
 			
 			levelInfo = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/LevelNumber").GetComponent<Text>();
@@ -115,31 +126,43 @@ public class LevelManager : MonoBehaviour {
 					break;
 			}
 
+            button = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString()).GetComponent<Button>();
+
 			// Draw lock or unlock, also adjust text alignment.
 			if (levelList[i].isLocked) {
 				icon.sprite = this.lockIcon;
 				this.HideStars(levelList[i].index);
+                button.interactable = false;
 				
 			} else {
 				this.levelInfo.alignment = TextAnchor.UpperCenter;
 				icon.sprite = this.unlockIcon;
+                button.interactable = true;
 				
 			}
 
 		}
 	
 	}
-	
-	void Update () {
-	
-//		if (Input.GetMouseButtonUp (0)) {
-//			for (int i = 0; i < levelList.Count; i++) {
-//				if (!levelList [i].isLocked) {
-//					Application.LoadLevel (levelList [i].index);
-//				}
-//			}
-//		}
 
-	}
+    void Update() {
+
+        touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        int convertToSceneName = 0;
+
+        if (theme.Equals("City")) {
+            convertToSceneName += 10;
+        }
+        else if (theme.Equals("Space")) {
+            convertToSceneName += 20;
+        }
+
+        for (int i = 0; i < levelList.Count; i++) {
+            if (!levelList[i].isLocked && levelList[i].level.bounds.Contains(touchPos)) {
+                Debug.Log("hello " + touchPos.ToString());
+                SceneManager.LoadScene("Level " + (i + 1 + convertToSceneName).ToString());
+            }
+        }
+    }
 
 }

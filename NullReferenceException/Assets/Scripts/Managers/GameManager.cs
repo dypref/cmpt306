@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -8,14 +9,18 @@ public class GameManager : MonoBehaviour {
 	static public int CoinCount;
 	// The text that shows the number of the coins
 	private Text CoinText;
+    private Text levelText;
 	
-	// stars
+	// Stars
 	private Image leftStar;
 	private Image middleStar;
 	private Image rightStar;
 	
-	// the name of the theme starting with a capitalized character;
-	public string theme;
+	// For right navigation
+    public string sceneName;
+    public string theme;
+    public string currentLevel;
+    public string nextLevel;
 
 	// Everything about the result of current level
 	private GameObject result;
@@ -28,6 +33,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+        levelText = GameObject.Find("Canvas/Current Level").GetComponent<Text>();
+        levelText.text = theme + " - " + currentLevel;
 		CoinText = GameObject.Find ("Canvas/Coins").GetComponent<Text> ();
 		CoinCount = 0;
 	}
@@ -45,6 +52,9 @@ public class GameManager : MonoBehaviour {
 		if (other.CompareTag ("Player")) {
 			other.enabled = false;
 			this.GetResult();
+
+            // Save data
+            DataManager.SaveData(sceneName, 1, CoinCount);
 		}
 			
 	}
@@ -87,11 +97,16 @@ public class GameManager : MonoBehaviour {
 				break;
 				
 		}
-		
-		// Buttons part
-		
-		
-		
+				
 	}
+
+    public void goNextLevel() {
+        SceneManager.LoadScene(this.nextLevel.ToString());
+    }
+
+    public void goSelectionMenu() {
+        SceneManager.LoadScene(this.theme.ToString());
+    }
+
 
 }
