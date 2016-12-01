@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour {
 				break;
 				
 		}
-				
+		InputManager.moveEnabled = false;
 	}
 	
 	public void goCurrentLevel() {
