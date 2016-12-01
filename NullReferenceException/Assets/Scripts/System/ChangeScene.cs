@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour {
 
+	// For right navigation
+    public string sceneName;
+    public string currentLevel;
 	public string nextLevel;
 	public string theme;
 
@@ -21,8 +24,20 @@ public class ChangeScene : MonoBehaviour {
 	}
 	
 	// Back to 10 level select scene
-	void BackToSceneSelect() {
+	public void BackToSceneSelect() {
 		SceneManager.LoadScene (theme.ToString());
 	}
+	
+	public void goCurrentLevel() {
+		SceneManager.LoadScene(this.sceneName.ToString());
+	}
+
+    public void goNextLevel() {
+        SceneManager.LoadScene(this.nextLevel.ToString());
+    }
+
+    public void goSelectionMenu() {
+        SceneManager.LoadScene(this.theme.ToString());
+    }
 	
 }

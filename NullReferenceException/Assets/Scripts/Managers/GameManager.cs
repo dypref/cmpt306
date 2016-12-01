@@ -99,6 +99,10 @@ public class GameManager : MonoBehaviour {
 		}
 				
 	}
+	
+	public void goCurrentLevel() {
+		SceneManager.LoadScene(this.currentLevel.ToString());
+	}
 
     public void goNextLevel() {
         SceneManager.LoadScene(this.nextLevel.ToString());
