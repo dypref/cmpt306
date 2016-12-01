@@ -24,7 +24,6 @@ public class DragInput : MonoBehaviour {
 		}
 	}
 
-
 	private void DragOrPickUp() {
 
 		var inputPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -46,6 +45,7 @@ public class DragInput : MonoBehaviour {
 					curObject.transform.localScale = curObject.transform.localScale * 1.5f;
 
 					if (curObject.transform.tag == "PhysBlock") {
+						
 						curObject.GetComponent<Rigidbody2D>().isKinematic = true;
 					}
 				}
@@ -60,6 +60,7 @@ public class DragInput : MonoBehaviour {
 		curObject.transform.localScale = curObject.transform.localScale * (2f/3f);
 		curObject.transform.parent = null;
 		if (curObject.transform.tag == "PhysBlock") {
+			
 			curObject.GetComponent<Rigidbody2D>().isKinematic = false;
 		}
 	}
