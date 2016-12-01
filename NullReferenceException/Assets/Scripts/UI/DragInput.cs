@@ -38,7 +38,7 @@ public class DragInput : MonoBehaviour {
 			if (touches.Length > 0) {
 				
 				var hit = touches[0];
-				if (hit.transform != null && (hit.transform.tag == "Block" || hit.transform.tag == "PhysBlock")) {
+				if (hit.transform != null && (hit.transform.tag == "Block" || hit.transform.tag == "PhysBlock") && hit.transform.parent != null) {
 					
 					dragging = true;
 					curObject = hit.transform.gameObject;
