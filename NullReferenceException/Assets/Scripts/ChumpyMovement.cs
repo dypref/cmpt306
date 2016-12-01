@@ -60,13 +60,10 @@ public class ChumpyMovement : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.CompareTag ("Respawn"))
 			Respawn ();
-	}
-
-	void OnCollisionEnter2D(Collision2D collider) {
 
 		// The number of coins is increased by one, 
 		// and the coin will disappear when Chumpy touches a coin
-		if (collider.gameObject.CompareTag("Coin")) {
+		if (other.CompareTag("Coin")) {
 
 			// Play the item get sound
 			AudioSource.PlayClipAtPoint(ItemGetSound, transform.localPosition);
@@ -75,10 +72,9 @@ public class ChumpyMovement : MonoBehaviour {
 			GameManager.CoinCount += 1;
 
 			// Destroy the coin that got by Chumpy
-			Destroy (collider.gameObject);
+			Destroy (other.gameObject);
 
 		}
-
 	}
 
 	// Calculate the point below Chumpy
