@@ -68,6 +68,8 @@ public class LevelManager : MonoBehaviour {
 				dataID = i + 1 + 10;
 			} else if (theme.Equals("Space")) {
 				dataID = i + 1 + 20;
+			} else {
+				dataID = i + 1;
 			}
 			
 			levelList[i].index = dataID;

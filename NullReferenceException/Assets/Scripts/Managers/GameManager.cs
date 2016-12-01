@@ -52,8 +52,6 @@ public class GameManager : MonoBehaviour {
 			// other.enabled = false;
 			GetResult();
 
-//            // Save data
-//            DataManager.SaveData(sceneName, 1, CoinCount);
 		}
 			
 	}
@@ -66,9 +64,6 @@ public class GameManager : MonoBehaviour {
 		
 		// Save data
 		DataManager.SaveData(sceneName, 1, CoinCount);
-		Debug.Log(sceneName);
-		Debug.Log(CoinCount);
-		Debug.Log(PlayerPrefs.GetInt("starOfLevel 21"));
 		
 		// Stars part
 		this.leftStar = GameObject.Find("Canvas/Result/starLeft").GetComponent<Image> ();
