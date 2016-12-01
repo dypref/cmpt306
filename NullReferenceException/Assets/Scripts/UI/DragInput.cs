@@ -8,8 +8,6 @@ public class DragInput : MonoBehaviour {
 	private bool dragging = false;
 	private GameObject curObject;
 	private Vector2 offset;
-	private bool kinematicDefault;
-	private Rigidbody2D rb;
 
 	public void Update (){
 		
@@ -40,17 +38,15 @@ public class DragInput : MonoBehaviour {
 			if (touches.Length > 0) {
 				
 				var hit = touches[0];
-				if (hit.transform != null && hit.transform.tag == "Block") {
+				if (hit.transform != null && (hit.transform.tag == "Block" || hit.transform.tag == "PhysBlock")) {
 					
 					dragging = true;
 					curObject = hit.transform.gameObject;
 					offset = (Vector2)(hit.transform.position - inputPosition);
 					curObject.transform.localScale = curObject.transform.localScale * 1.5f;
 
-					rb = curObject.GetComponent<Rigidbody2D> ();
-					if (rb != null) {
-						kinematicDefault = rb.isKinematic;
-						rb.isKinematic = true;
+					if (curObject.transform.tag == "PhysBlock") {
+						curObject.GetComponent<Rigidbody2D>().isKinematic = true;
 					}
 				}
 			}
@@ -61,10 +57,10 @@ public class DragInput : MonoBehaviour {
 	private void DropItem()	{
 		
 		dragging = false;
-		if (rb != null) {
-			rb.isKinematic = kinematicDefault;
-		}
 		curObject.transform.localScale = curObject.transform.localScale * (2f/3f);
 		curObject.transform.parent = null;
+		if (curObject.transform.tag == "PhysBlock") {
+			curObject.GetComponent<Rigidbody2D>().isKinematic = false;
+		}
 	}
 }
