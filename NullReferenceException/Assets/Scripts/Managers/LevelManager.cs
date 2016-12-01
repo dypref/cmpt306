@@ -33,15 +33,12 @@ public class LevelManager : MonoBehaviour {
 	
 	// Level number
 	private Text levelInfo;
+	private int dataID;
 
 	void Awake () {
 	    
         // Assume I have these data;
-        for (int i = 0; i < levelList.Count; i++) {
-            levelList[i].isFinished = 1;
-        }
-            
-        levelList[0].starCount = 3;
+
 
 		// Initialize data.
 		foreach (Level level in levelList) {
@@ -67,22 +64,30 @@ public class LevelManager : MonoBehaviour {
 		// Draw data.
 		for (int i = 0; i < levelList.Count; i++) {	
 			
-			levelList[i].index = i;
+			if (theme.Equals("City")) {
+				dataID = i + 1 + 10;
+			} else if (theme.Equals("Space")) {
+				dataID = i + 1 + 20;
+			}
+			
+			levelList[i].index = dataID;
 			
 			// Get data.
-			if (PlayerPrefs.HasKey("Level" + i.ToString() + "isFinished")) {
-				levelList[i].isFinished = PlayerPrefs.GetInt("Level" + (i + 1).ToString() + "isFinished");
-                levelList[i].isLocked = false;
+			if (PlayerPrefs.HasKey("Level " + levelList[i].index.ToString() + "isFinished")) {
+				levelList[i].isFinished = PlayerPrefs.GetInt("Level " + levelList[i].index.ToString() + "isFinished");
+				if (levelList[i].isFinished == 1) {
+                	levelList[i].isLocked = false;
+				}
 			}
 			
-			if (PlayerPrefs.HasKey("starOfLevel" + i.ToString())) {
-				levelList[i].starCount = PlayerPrefs.GetInt("starOfLevel" + (i + 1).ToString());
+			if (PlayerPrefs.HasKey("starOfLevel " + levelList[i].index.ToString())) {
+				levelList[i].starCount = PlayerPrefs.GetInt("starOfLevel " + levelList[i].index.ToString());
 			}
 			
-			levelInfo = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/LevelNumber").GetComponent<Text>();
-			icon = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString()).GetComponent<Image> ();
+			levelInfo = GameObject.Find("Canvas/Level" + (i + 1).ToString() + "/LevelNumber").GetComponent<Text>();
+			icon = GameObject.Find("Canvas/Level" + (i + 1).ToString()).GetComponent<Image> ();
 			
-			levelInfo.text = (levelList[i].index + 1).ToString();
+			levelInfo.text = (i + 1).ToString();
 			
 			if (levelList [i].isFinished == 1) {
 
@@ -94,9 +99,9 @@ public class LevelManager : MonoBehaviour {
 			}
 			
 			// Draw stars.							
-			this.firstStar = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/star1").GetComponent<Image> ();
-			this.secondStar = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/star2").GetComponent<Image> ();
-			this.thirdStar = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString() + "/star3").GetComponent<Image> ();
+			this.firstStar = GameObject.Find("Canvas/Level" + (i + 1).ToString() + "/star1").GetComponent<Image> ();
+			this.secondStar = GameObject.Find("Canvas/Level" + (i + 1).ToString() + "/star2").GetComponent<Image> ();
+			this.thirdStar = GameObject.Find("Canvas/Level" + (i + 1).ToString() + "/star3").GetComponent<Image> ();
 
 			switch (levelList[i].starCount) {
 				case 0:
@@ -126,16 +131,17 @@ public class LevelManager : MonoBehaviour {
 					break;
 			}
 
-            button = GameObject.Find("Canvas/Level" + (levelList[i].index + 1).ToString()).GetComponent<Button>();
+            button = GameObject.Find("Canvas/Level" + (i + 1).ToString()).GetComponent<Button>();
 
 			// Draw lock or unlock, also adjust text alignment.
 			if (levelList[i].isLocked) {
 				icon.sprite = this.lockIcon;
-				this.HideStars(levelList[i].index);
+				this.HideStars(i);
+				levelInfo.text= "".ToString();
                 button.interactable = false;
 				
 			} else {
-				this.levelInfo.alignment = TextAnchor.UpperCenter;
+				levelInfo.alignment = TextAnchor.UpperCenter;
 				icon.sprite = this.unlockIcon;
                 button.interactable = true;
 				

@@ -26,16 +26,15 @@ public class GameManager : MonoBehaviour {
 	private GameObject result;
 
 	void Awake() {
-		// Hide result first
 		result = GameObject.Find("Canvas/Result");
-		result.SetActive(false);
+		levelText = GameObject.Find("Canvas/Current Level").GetComponent<Text>();
+		CoinText = GameObject.Find ("Canvas/Coins").GetComponent<Text> ();
 	}
 	
 	// Use this for initialization
 	void Start () {
-        levelText = GameObject.Find("Canvas/Current Level").GetComponent<Text>();
+		result.SetActive(false);
         levelText.text = theme + " - " + currentLevel;
-		CoinText = GameObject.Find ("Canvas/Coins").GetComponent<Text> ();
 		CoinCount = 0;
 	}
 	
@@ -50,11 +49,11 @@ public class GameManager : MonoBehaviour {
 	// Show result
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.CompareTag ("Player")) {
-			other.enabled = false;
-			this.GetResult();
+			// other.enabled = false;
+			GetResult();
 
-            // Save data
-            DataManager.SaveData(sceneName, 1, CoinCount);
+//            // Save data
+//            DataManager.SaveData(sceneName, 1, CoinCount);
 		}
 			
 	}
@@ -63,7 +62,13 @@ public class GameManager : MonoBehaviour {
 	public void GetResult() {
 		
 		// Show result
-		this.result.SetActive(true);
+		result.SetActive(true);
+		
+		// Save data
+		DataManager.SaveData(sceneName, 1, CoinCount);
+		Debug.Log(sceneName);
+		Debug.Log(CoinCount);
+		Debug.Log(PlayerPrefs.GetInt("starOfLevel 21"));
 		
 		// Stars part
 		this.leftStar = GameObject.Find("Canvas/Result/starLeft").GetComponent<Image> ();
@@ -101,7 +106,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void goCurrentLevel() {
-		SceneManager.LoadScene(this.currentLevel.ToString());
+		SceneManager.LoadScene(this.sceneName.ToString());
 	}
 
     public void goNextLevel() {

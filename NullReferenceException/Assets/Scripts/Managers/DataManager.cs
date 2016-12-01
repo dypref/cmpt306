@@ -11,13 +11,13 @@ public static class DataManager {
 	// star: the number of coins you get
 	public static void SaveData(string level, int isFinished, int star) {
 		
-		PlayerPrefs.SetInt(level.ToString() + "isFinished", isFinished);
+		PlayerPrefs.SetInt(level + "isFinished", isFinished);
 		
 		// no star statics or better result then update data
-		if (!PlayerPrefs.HasKey("starOf" + level.ToString()) ||
-			PlayerPrefs.GetInt("starOf" + level.ToString()) < star) {
-				
-			PlayerPrefs.SetInt("starOf" + level.ToString(), star);
+		if (!PlayerPrefs.HasKey("starOf" + level) ||
+			PlayerPrefs.GetInt("starOf" + level) < star) {
+
+			PlayerPrefs.SetInt("starOf" + level, star);
 		}
 		
 	}
