@@ -39,7 +39,6 @@ public class LevelManager : MonoBehaviour {
 	    
         // Assume I have these data;
 
-
 		// Initialize data.
 		foreach (Level level in levelList) {
 			level.isLocked = true;	
