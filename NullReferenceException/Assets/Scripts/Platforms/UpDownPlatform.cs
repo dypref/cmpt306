@@ -8,11 +8,15 @@ public class UpDownPlatform : MonoBehaviour {
 	public float Distance = 3f;
 	public float StartPosition;
 
+
 	void Start(){
 		StartPosition = transform.position.y;
+
 	}
 
 	void FixedUpdate() {
+		if (transform.parent != null)
+			return;
 
 		var CurrentPosition = transform.position.y;
 
@@ -27,5 +31,7 @@ public class UpDownPlatform : MonoBehaviour {
 		transform.Translate (Direction * MovingSpeed * Time.deltaTime);
 
 	}
+
+
 
 }

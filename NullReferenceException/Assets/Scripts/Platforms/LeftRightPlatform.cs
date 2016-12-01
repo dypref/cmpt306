@@ -13,6 +13,10 @@ public class LeftRightPlatform : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
+		// disable functionality when it is in the slot
+		if (transform.parent != null) {
+			return;
+		}
 
 		var CurrentPosition = transform.position.x;
 
