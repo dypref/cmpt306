@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class ChumpyMovement : MonoBehaviour {
 	// Movement speed for this unit
@@ -10,8 +11,6 @@ public class ChumpyMovement : MonoBehaviour {
 	[SerializeField] private float WaterModifier = 0.6f;
 	// Mask containing blocks that are considered the ground
 	[SerializeField] private LayerMask GroundMask;
-	// The location that Chumpy will spawn/respawn at
-	[SerializeField] private Transform SceneSpawn;
 	// The sound that Chumpy make when it jumps
 	[SerializeField] private AudioClip JumpSound;
 	// The sound plays when Chumpy gets a coin
@@ -23,7 +22,6 @@ public class ChumpyMovement : MonoBehaviour {
 	void Start() {
 		// Instantiate Chumpy's GameObjects
 		_rb2d = GetComponent<Rigidbody2D> ();
-		Respawn ();
 	}
 
 	void Update () {
@@ -50,11 +48,9 @@ public class ChumpyMovement : MonoBehaviour {
 	}
 
 	void Respawn() {
-		// Move to spawn
-		if(SceneSpawn != null)
-			_rb2d.position = SceneSpawn.position;
-		// Remove all velocity
-		_rb2d.velocity = Vector2.zero;
+
+		//Reloads current scene
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
