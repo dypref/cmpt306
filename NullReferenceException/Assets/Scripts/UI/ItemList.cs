@@ -14,17 +14,19 @@ public class ItemList : MonoBehaviour {
 			GameObject curSlot = Instantiate (EmptySlot, gameObject.transform) as GameObject;
 			GameObject curObject = Instantiate (LevelObjects[i], curSlot.transform) as GameObject;
 
-			//curObject.SetActive (false);
-			//curObject.GetComponent<Rigidbody2D>().
-
-			//curSlot.GetComponent<Image> ().sprite = curSlot.GetComponent<SpriteRenderer> ().sprite;
-
+			//normalising slot
 			curSlot.transform.localScale = Vector3.one;
+
+			//normalising object
 			curObject.transform.parent = null;
 			curObject.transform.localScale = Vector3.one;
 			curObject.transform.SetParent (curSlot.transform);
 			curObject.transform.localPosition = Vector3.zero;
 
+			//preventing object from falling out of list
+			if (curObject.transform.tag == "PhysBlock") {
+				curObject.GetComponent<Rigidbody2D>().isKinematic = true;
+			}
 		}
 	}
 }
