@@ -6,3 +6,20 @@
 
 ## Technical Elements
 - Mobile application
+
+## Team: NullReferenceException
+(This is an alphabetical order by last name. )
+
+| Name |
+|:---:|
+| Lisa |
+| Yige |
+| Ix | 
+| Kevin |
+| Dylan |
+
+## Game Screenshots
+![alt text][mainmenu]
+
+[mainmenu]: Pictures/mainmenu.png "Main menu"
+
