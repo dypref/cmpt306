@@ -155,22 +155,22 @@ public class LevelManager : MonoBehaviour {
 
     void Update() {
 
-        touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        int convertToSceneName = 0;
-
-        if (theme.Equals("City")) {
-            convertToSceneName += 10;
-        }
-        else if (theme.Equals("Space")) {
-            convertToSceneName += 20;
-        }
-
-        for (int i = 0; i < levelList.Count; i++) {
-            if (!levelList[i].isLocked && levelList[i].level.bounds.Contains(touchPos)) {
-                Debug.Log("hello " + touchPos.ToString());
-                SceneManager.LoadScene("Level " + (i + 1 + convertToSceneName).ToString());
-            }
-        }
+//        touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+//        int convertToSceneName = 0;
+//
+//        if (theme.Equals("City")) {
+//            convertToSceneName += 10;
+//        }
+//        else if (theme.Equals("Space")) {
+//            convertToSceneName += 20;
+//        }
+//
+//        for (int i = 0; i < levelList.Count; i++) {
+//            if (!levelList[i].isLocked && levelList[i].level.bounds.Contains(touchPos)) {
+//                Debug.Log("hello " + touchPos.ToString());
+//                SceneManager.LoadScene("Level " + (i + 1 + convertToSceneName).ToString());
+//            }
+//        }
     }
 
 }
