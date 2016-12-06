@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour {
 
 	// Everything about the result of current level
 	private GameObject result;
+    private GameObject darkArea;
 
 	void Awake() {
 		result = GameObject.Find("Canvas/Result");
+        darkArea = GameObject.Find("Canvas/DarkArea");
 		levelText = GameObject.Find("Canvas/Current Level").GetComponent<Text>();
 		CoinText = GameObject.Find ("Canvas/Coins").GetComponent<Text> ();
 	}
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		result.SetActive(false);
+        darkArea.SetActive(false);
         levelText.text = theme + " - " + currentLevel;
 		CoinCount = 0;
 	}
@@ -61,6 +64,7 @@ public class GameManager : MonoBehaviour {
 		
 		// Show result
 		result.SetActive(true);
+        darkArea.SetActive(true);
 		
 		// Save data
 		DataManager.SaveData(sceneName, 1, CoinCount);
