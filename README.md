@@ -1,4 +1,4 @@
-# The Adventures of Chumpy [![GitHub version](https://badge.fury.io/gh/boennemann%2Fbadges.svg)](http://badge.fury.io/gh/boennemann%2Fbadges)
+# The Adventures of Chumpy
 
 ## Game Description
 > Mobile application
@@ -25,3 +25,8 @@
 
 If you have any issues, bug them. (Alphabetical order by last name. )
 
+
+## Download
+<p align="center">
+    <img src="Pictures/qrcode.png" width="200">
+</p>
