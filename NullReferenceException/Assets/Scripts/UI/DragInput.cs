@@ -48,6 +48,8 @@ public class DragInput : MonoBehaviour {
 						
 						curObject.GetComponent<Rigidbody2D>().isKinematic = true;
 					}
+
+					gameObject.GetComponent<ItemMenu>().HideAndShow();
 				}
 			}
 		}
