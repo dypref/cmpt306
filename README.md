@@ -12,6 +12,14 @@
     <img src="Pictures/mainmenu.png" width="500">
 </p>
 
+<p align="center">
+    <img src="Pictures/Forest.png" width="500">
+</p>
+
+<p align="center">
+    <img src="Pictures/City.png" width="500">
+</p>
+
 
 ## Team: NullReferenceException
 
