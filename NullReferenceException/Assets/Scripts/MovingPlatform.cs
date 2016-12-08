@@ -51,6 +51,7 @@ public class MovingPlatform : MonoBehaviour
         else
         {
             tempPosition = end;
+            transform.position = startPos.position;
         }
     }
 }
