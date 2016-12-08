@@ -18,6 +18,7 @@ public class ChumpyMovement : MonoBehaviour {
 
 	private Rigidbody2D _rb2d;
 	private bool _isGrounded;
+    private bool _canJump;
 
 	void Start() {
 		// Instantiate Chumpy's GameObjects
@@ -41,7 +42,7 @@ public class ChumpyMovement : MonoBehaviour {
 
 	// Jump for InputManager Script on mobile device
 	public void Jump() {
-		if (_isGrounded) {
+		if (_isGrounded && _canJump) {
 			_rb2d.AddForce (new Vector2 (_rb2d.velocity.x, JumpPower));
 			AudioSource.PlayClipAtPoint(JumpSound, transform.localPosition);
 		}
@@ -56,6 +57,13 @@ public class ChumpyMovement : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.CompareTag ("Respawn"))
 			Respawn ();
+
+        if (other.CompareTag("Water"))
+            _canJump = false;
+        else
+            _canJump = true;
+            
+
 
 		// The number of coins is increased by one, 
 		// and the coin will disappear when Chumpy touches a coin
