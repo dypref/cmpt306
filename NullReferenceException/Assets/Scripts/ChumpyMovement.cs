@@ -23,6 +23,7 @@ public class ChumpyMovement : MonoBehaviour {
 	void Start() {
 		// Instantiate Chumpy's GameObjects
 		_rb2d = GetComponent<Rigidbody2D> ();
+		_canJump = true;
 	}
 
 	void Update () {
